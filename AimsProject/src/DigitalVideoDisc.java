@@ -85,4 +85,13 @@ public class DigitalVideoDisc {
         nbDigitalVideoDiscs++;
         this.id = nbDigitalVideoDiscs;
     }
+    public boolean isMatch(String title) {
+        // So sánh không phân biệt hoa thường và kiểm tra chuỗi con
+        return this.title.toLowerCase().contains(title.toLowerCase());
+    }
+
+    @Override
+    public String toString() {
+        return "DVD - [" + title + "] - [" + category + "] - [" + director + "] - [" + length + "]: [" + cost + "] $";
+    }
 }

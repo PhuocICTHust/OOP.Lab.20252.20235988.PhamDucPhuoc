@@ -11,7 +11,7 @@ public class TestPassingParameter {
         System.out.println("jungle dvd title: " + jungleDVD.getTitle());
     }
 
-    // Hàm swap đã được viết lại để hoán đổi giá trị thực tế
+
     public static void swap(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
         String tmpTitle = dvd1.getTitle();
         dvd1.setTitle(dvd2.getTitle());
