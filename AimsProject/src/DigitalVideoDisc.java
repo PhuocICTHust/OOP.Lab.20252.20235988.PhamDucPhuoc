@@ -1,6 +1,7 @@
 package Lab02.src;
-
 public class DigitalVideoDisc {
+    private static int nbDigitalVideoDiscs = 0;
+    private int id;
     private String title;
     private String category;
     private String director;
@@ -78,5 +79,10 @@ public class DigitalVideoDisc {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    public DigitalVideoDisc(String title) {
+        this.title = title;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
     }
 }
