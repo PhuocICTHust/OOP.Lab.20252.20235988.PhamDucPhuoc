@@ -1,6 +1,0 @@
-Question: When should accessor methods be used?
-According to Allen Holub's article, getters and setters should generally be avoided because they expose internal implementation details, which ruins data abstraction and makes the code difficult to maintain. 
-The best object-oriented practice is to ask the object to do the work rather than asking for its information.
-However, accessor methods can be used in the following specific scenarios:
-When returning an interface: It is acceptable to use a method that returns an object via an interface it implements (e.g., getIdentity()), because the interface still protects the code from internal implementation changes.
-At procedural boundary layers: Accessors are necessary when bridging object-oriented systems with external procedural systems, such as databases (e.g., JDBC) or procedural operating systems. These boundary APIs require generic and highly flexible interfaces because the designers cannot predict exactly how the classes will be used in advance.
