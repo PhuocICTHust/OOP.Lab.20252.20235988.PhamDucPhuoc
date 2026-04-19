@@ -1,4 +1,6 @@
-package Lab02.src;
+package hust.soict.globalict.aims.cart;
+
+import hust.soict.globalict.aims.disc.DigitalVideoDisc;
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20;
@@ -58,7 +60,7 @@ public class Cart {
     public void addDigitalVideoDisc(DigitalVideoDisc dvd1, DigitalVideoDisc dvd2) {
         addDigitalVideoDisc(new DigitalVideoDisc[] {dvd1, dvd2});
     }
-    // In danh sách giỏ hàng
+
     public void print() {
         System.out.println("***********************CART***********************");
         System.out.println("Ordered Items:");
@@ -69,14 +71,13 @@ public class Cart {
         System.out.println("***************************************************");
     }
 
-    // Tìm kiếm theo ID
     public void searchById(int id) {
         boolean found = false;
         for (int i = 0; i < qtyOrdered; i++) {
             if (itemsOrdered[i].getId() == id) {
                 System.out.println("Match found: " + itemsOrdered[i].toString());
                 found = true;
-                break; // Vì ID là duy nhất nên tìm thấy là thoát vòng lặp
+                break;
             }
         }
         if (!found) {
@@ -84,7 +85,6 @@ public class Cart {
         }
     }
 
-    // Tìm kiếm theo Title
     public void searchByTitle(String title) {
         boolean found = false;
         for (int i = 0; i < qtyOrdered; i++) {

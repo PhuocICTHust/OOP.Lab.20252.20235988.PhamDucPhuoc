@@ -1,4 +1,5 @@
-package Lab02.src;
+package hust.soict.globalict.aims.disc;
+
 public class DigitalVideoDisc {
     private static int nbDigitalVideoDiscs = 0;
     private int id;
@@ -8,14 +9,18 @@ public class DigitalVideoDisc {
     private int length;
     private float cost;
 
+    // Constructors
     public DigitalVideoDisc() {
         super();
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
     }
-
 
     public DigitalVideoDisc(String title) {
         super();
         this.title = title;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
     }
 
     public DigitalVideoDisc(String category, String title, float cost) {
@@ -23,6 +28,8 @@ public class DigitalVideoDisc {
         this.category = category;
         this.title = title;
         this.cost = cost;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
     }
 
     public DigitalVideoDisc(String director, String category, String title, float cost) {
@@ -31,6 +38,8 @@ public class DigitalVideoDisc {
         this.category = category;
         this.title = title;
         this.cost = cost;
+        nbDigitalVideoDiscs++;
+        this.id = nbDigitalVideoDiscs;
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
@@ -40,53 +49,25 @@ public class DigitalVideoDisc {
         this.director = director;
         this.length = length;
         this.cost = cost;
-    }
-    public String getCategory() {
-        return category;
-    }
-
-    public int getLength() {
-        return length;
-    }
-
-    public float getCost() {
-        return cost;
-    }
-
-    public void setCost(float cost) {
-        this.cost = cost;
-    }
-
-    public void setLength(int length) {
-        this.length = length;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public DigitalVideoDisc(String title) {
-        this.title = title;
         nbDigitalVideoDiscs++;
         this.id = nbDigitalVideoDiscs;
     }
+
+    // Getters and Setters
+    public int getId() { return id; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
+    public int getLength() { return length; }
+    public void setLength(int length) { this.length = length; }
+    public float getCost() { return cost; }
+    public void setCost(float cost) { this.cost = cost; }
+    public String getDirector() { return director; }
+    public void setDirector(String director) { this.director = director; }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
+
+    // Utils
     public boolean isMatch(String title) {
-        // So sánh không phân biệt hoa thường và kiểm tra chuỗi con
         return this.title.toLowerCase().contains(title.toLowerCase());
     }
 
