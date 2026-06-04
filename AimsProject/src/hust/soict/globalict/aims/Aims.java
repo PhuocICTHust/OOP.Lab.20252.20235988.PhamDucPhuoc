@@ -5,6 +5,8 @@ import hust.soict.globalict.aims.media.DigitalVideoDisc;
 import hust.soict.globalict.aims.media.Media;
 import hust.soict.globalict.aims.media.Playable;
 import hust.soict.globalict.aims.store.Store;
+import hust.soict.globalict.aims.exception.LimitExceededException;
+import hust.soict.globalict.aims.exception.PlayerException;
 
 import java.util.Scanner;
 
@@ -56,7 +58,7 @@ public class Aims {
     public static void storeMenu() {
         int choice;
         do {
-            store.print(); // Hiển thị các mặt hàng trong kho
+            store.print();
             System.out.println("\nOptions: ");
             System.out.println("--------------------------------");
             System.out.println("1. See a media's details");
@@ -87,7 +89,11 @@ public class Aims {
                     String titleToAdd = scanner.nextLine();
                     Media mediaToAdd = store.searchByTitle(titleToAdd);
                     if (mediaToAdd != null) {
-                        cart.addMedia(mediaToAdd);
+                        try {
+                            cart.addMedia(mediaToAdd);
+                        } catch (LimitExceededException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("Media not found in store.");
                     }
@@ -98,7 +104,11 @@ public class Aims {
                     Media mediaToPlay = store.searchByTitle(titleToPlay);
                     if (mediaToPlay != null) {
                         if (mediaToPlay instanceof Playable) {
-                            ((Playable) mediaToPlay).play();
+                            try {
+                                ((Playable) mediaToPlay).play();
+                            } catch (PlayerException e) {
+                                System.out.println(e.getMessage());
+                            }
                         } else {
                             System.out.println("This media cannot be played (e.g., it's a Book).");
                         }
@@ -133,11 +143,19 @@ public class Aims {
 
             switch (choice) {
                 case 1:
-                    cart.addMedia(media);
+                    try {
+                        cart.addMedia(media);
+                    } catch (LimitExceededException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 2:
                     if (media instanceof Playable) {
-                        ((Playable) media).play();
+                        try {
+                            ((Playable) media).play();
+                        } catch (PlayerException e) {
+                            System.out.println(e.getMessage());
+                        }
                     } else {
                         System.out.println("This media type cannot be played.");
                     }
@@ -207,8 +225,15 @@ public class Aims {
                     String titleToPlay = scanner.nextLine();
                     Media mPlay = cart.searchByTitle(titleToPlay);
                     if (mPlay != null) {
-                        if (mPlay instanceof Playable) ((Playable) mPlay).play();
-                        else System.out.println("This media cannot be played.");
+                        if (mPlay instanceof Playable) {
+                            try {
+                                ((Playable) mPlay).play();
+                            } catch (PlayerException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        } else {
+                            System.out.println("This media cannot be played.");
+                        }
                     } else {
                         System.out.println("Media not found in cart.");
                     }

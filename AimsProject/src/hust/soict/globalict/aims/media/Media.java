@@ -30,11 +30,24 @@ public abstract class Media {
     public float getCost() { return cost; }
     public void setCost(float cost) { this.cost = cost; }
 
+    /**
+     * Two media are considered equal when they have the same title.
+     * The method is hardened against bad arguments:
+     *  - "instanceof" returns false for null and for non-Media objects,
+     *    so a ClassCastException can never occur on the cast below.
+     *  - the try/catch is an additional safety net that turns any
+     *    NullPointerException / ClassCastException into a clean "false"
+     *    instead of crashing the caller.
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Media)) return false;
-        Media media = (Media) obj;
-        return this.title != null && this.title.equals(media.getTitle());
+        try {
+            if (this == obj) return true;
+            if (!(obj instanceof Media)) return false;   // guards null + wrong type
+            Media media = (Media) obj;                    // safe cast
+            return this.title != null && this.title.equals(media.getTitle());
+        } catch (NullPointerException | ClassCastException e) {
+            return false;
+        }
     }
 }

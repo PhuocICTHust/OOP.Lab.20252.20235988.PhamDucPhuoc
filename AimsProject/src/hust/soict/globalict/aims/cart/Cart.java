@@ -1,11 +1,22 @@
 package hust.soict.globalict.aims.cart;
+
 import hust.soict.globalict.aims.media.Media;
-import java.util.ArrayList;
+import hust.soict.globalict.aims.exception.LimitExceededException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
-    private ArrayList<Media> itemsOrdered = new ArrayList<>();
+    public static final int MAX_NUMBERS_ORDERED = 20;
 
-    public void addMedia(Media media) {
+    // ObservableList so the JavaFX TableView updates automatically when items change.
+    private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+
+    public void addMedia(Media media) throws LimitExceededException {
+        if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
+            throw new LimitExceededException(
+                "ERROR: The cart is full (maximum " + MAX_NUMBERS_ORDERED + " items).");
+        }
         if (!itemsOrdered.contains(media)) {
             itemsOrdered.add(media);
             System.out.println(media.getTitle() + " has been added to the cart.");
@@ -74,5 +85,9 @@ public class Cart {
     public void sortByCostTitle() {
         itemsOrdered.sort(Media.COMPARE_BY_COST_TITLE);
         System.out.println("Cart sorted by Cost then Title.");
+    }
+
+    public ObservableList<Media> getItemsOrdered() {
+        return itemsOrdered;
     }
 }
