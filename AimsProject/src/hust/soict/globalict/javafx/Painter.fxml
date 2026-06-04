@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hust.soict.globalict.javafx.PainterController">
+    <left>
+        <TitledPane text="Tools" collapsible="false">
+            <content>
+                <VBox spacing="10.0">
+                    <fx:define>
+                        <ToggleGroup fx:id="tools" />
+                    </fx:define>
+                    <children>
+                        <RadioButton fx:id="penButton" text="Pen" selected="true" toggleGroup="$tools" />
+                        <RadioButton fx:id="eraserButton" text="Eraser" toggleGroup="$tools" />
+                    </children>
+                </VBox>
+            </content>
+        </TitledPane>
+    </left>
+    <center>
+        <Canvas fx:id="canvas" width="500.0" height="400.0" onMouseDragged="#canvasMouseDragged" />
+    </center>
+</BorderPane>

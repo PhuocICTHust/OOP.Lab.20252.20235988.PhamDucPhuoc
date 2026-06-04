@@ -1,0 +1,20 @@
+ANSWERS FOR LAB 04 - INHERITANCE AND POLYMORPHISM
+If the passing object is not an instance of Media, what happens?
+A ClassCastException occurs during runtime if cast directly. We must use the instanceof keyword to check the object type before casting.
+
+Polymorphism with toString method: Observe what happens and explain in detail.
+Calling the toString method on items in the list prints their specific subclass formats like Book or CD. This demonstrates polymorphism via dynamic binding. The Java Virtual Machine identifies the actual object type at runtime and executes the overridden method in the respective subclass.
+
+Question about Comparable interface approach
+
+What class should implement the Comparable interface?
+The abstract Media class should implement it.
+
+In those classes, how should you implement the compareTo method to reflect the ordering that we want?
+Override the compareTo method in the Media class to define a default sorting rule, such as sorting alphabetically by title.
+
+Can we have two ordering rules if we use this Comparable interface approach?
+No. The Comparable interface allows only one natural ordering rule. We must use the Comparator interface to support multiple sorting rules.
+
+Suppose the DVDs have a different ordering rule. How would you modify your code to allow this?
+Override the compareTo method again inside the DigitalVideoDisc class. Implement the specific logic to compare by title, then decreasing length, and finally cost.

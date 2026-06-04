@@ -1,4 +1,5 @@
 package hust.soict.globalict.aims.store;
+
 import hust.soict.globalict.aims.media.Media;
 import java.util.ArrayList;
 
@@ -41,5 +42,9 @@ public class Store {
             }
         }
         return null;
+    }
+
+    public ArrayList<Media> getItemsInStore() {
+        return itemsInStore;
     }
 }

@@ -1,5 +1,7 @@
 package hust.soict.globalict.aims.media;
 
+import hust.soict.globalict.aims.exception.PlayerException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class CompactDisc extends Disc implements Playable {
         }
     }
 
-    // Chiều dài CD là tổng chiều dài các Track, nên phải ghi đè (Override)
+    // The CD length is the sum of all track lengths, so it is overridden.
     @Override
     public int getLength() {
         int totalLength = 0;
@@ -41,11 +43,20 @@ public class CompactDisc extends Disc implements Playable {
     }
 
     @Override
-    public void play() {
+    public void play() throws PlayerException {
+        if (this.getLength() <= 0) {
+            throw new PlayerException("ERROR: CD length is non-positive: \"" + this.getTitle() + "\"");
+        }
         System.out.println("Playing CD: " + this.getTitle() + " by " + this.artist);
         System.out.println("CD Length: " + this.getLength());
         for (Track track : tracks) {
-            track.play();
+            try {
+                track.play();
+            } catch (PlayerException e) {
+                // Re-wrap the failing track's error so the caller knows the CD failed.
+                throw new PlayerException("ERROR when playing a track in CD \"" + this.getTitle()
+                        + "\": " + e.getMessage());
+            }
         }
     }
 
