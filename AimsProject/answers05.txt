@@ -1,0 +1,94 @@
+=====================================================================
+LAB 5 - THEORETICAL ANSWERS
+=====================================================================
+20235988-Pham Duc Phuoc
+---------------------------------------------------------------------
+QUESTION 1: Compare Swing and AWT elements
+---------------------------------------------------------------------
+
+AWT (Abstract Window Toolkit) and Swing are both Java GUI toolkits, but
+they differ in how they are implemented and in the components they offer.
+
+1) Implementation
+   - AWT components are "heavyweight": each component is backed by a
+     native peer from the underlying operating system. The look depends
+     on the OS, and the set of features is limited to what all platforms
+     share.
+   - Swing components are "lightweight": they are drawn in pure Java on
+     top of a single heavyweight window. This gives a consistent look on
+     every platform and a pluggable look-and-feel.
+
+2) Package
+   - AWT lives in   java.awt.*
+   - Swing lives in  javax.swing.*   (Swing component class names start
+     with the letter "J").
+
+3) Top-level containers
+   AWT                      Swing
+   -----------------------  -------------------------------------------
+   Frame                    JFrame   (content goes in its content pane)
+   Dialog                   JDialog
+   (Applet)                 JApplet  (legacy)
+   Window                   JWindow
+
+4) Common components (AWT name -> Swing name)
+   Label        -> JLabel
+   Button       -> JButton
+   TextField    -> JTextField
+   TextArea     -> JTextArea
+   Checkbox     -> JCheckBox
+   Choice       -> JComboBox
+   List         -> JList
+   Menu/MenuBar -> JMenu / JMenuBar
+   Panel        -> JPanel
+   ScrollPane   -> JScrollPane
+
+5) Adding components
+   - In AWT you add components directly to the Frame:        frame.add(c)
+   - In Swing you add to the content pane (modern JDK forwards add()
+     to the content pane automatically):       frame.getContentPane().add(c)
+
+6) Extra features Swing adds
+   - Pluggable look-and-feel, double buffering (smoother drawing),
+     tooltips, borders, richer components (JTable, JTree, JTabbedPane),
+     and built-in support for MVC-style models.
+
+Summary: Swing is a richer, platform-independent, lightweight toolkit
+built on top of AWT. We still use AWT for low-level pieces such as
+layout managers (BorderLayout, GridLayout, FlowLayout), event classes
+(ActionEvent, ActionListener) and geometry (Color, Font), but for the
+visible widgets we prefer the Swing "J" components.
+
+
+---------------------------------------------------------------------
+QUESTION 2: What happens if we do NOT use try-catch when calling
+            play() in the Aims class?
+---------------------------------------------------------------------
+
+ play() is declared as:
+
+    void play() throws PlayerException;      
+
+There are two distinct consequences:
+
+A) Compile time
+   PlayerException is a checked exception (it extends java.lang.Exception,
+   not RuntimeException). The Java compiler enforces the "catch or
+   declare" rule: any method that calls play() must EITHER surround the
+   call with a try-catch for PlayerException, OR declare
+   "throws PlayerException" itself.
+   If we do neither, the program WILL NOT COMPILE. We get an error such as:
+       "unreported exception PlayerException; must be caught or declared
+        to be thrown".
+
+B) Run time (if we instead just propagate it with "throws")
+   Suppose we silence the compiler by adding "throws PlayerException" all
+   the way up to main() but never actually handle it. Then, if a media
+   item with length <= 0 is played, play() throws a PlayerException that
+   nobody catches. It propagates up the call stack, the JVM's default
+   handler prints the stack trace to the console, and the program
+   TERMINATES abruptly. In a GUI context this is even worse: the error
+   is dumped to the console where the user never sees it, and the action
+   silently fails.
+
+
